@@ -41,11 +41,11 @@ public class Context {
 	}
 
 	private void map(final Class<? extends Object> c, final Object o) {
-		if (c == null) {
-			return;
-		}
 		add(c, o);
-		map(c.getSuperclass(), o);
+		Class<?> superClass = c.getSuperclass();
+		if (superClass != null) {
+			map(superClass, o);
+		}
 	}
 
 	private void add(final Class<? extends Object> c, final Object o) {
