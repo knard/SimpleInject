@@ -97,7 +97,7 @@ public class InvokerRepository {
 	 * @return the first annotation if the corresponding type.
 	 */
 	@SuppressWarnings("unchecked")
-	private <T extends Annotation> T getAnnotation(
+	static private <T extends Annotation> T getAnnotation(
 			final Annotation[] paramAnnotations, final Class<T> annotationClass) {
 		for (final Annotation annotation : paramAnnotations) {
 			if (annotation.annotationType() == annotationClass) {
