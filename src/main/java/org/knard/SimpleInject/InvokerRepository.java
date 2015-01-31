@@ -22,9 +22,7 @@ package org.knard.SimpleInject;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -38,8 +36,6 @@ import javax.inject.Named;
  */
 public class InvokerRepository {
 
-	private final Map<Class<?>, Invoker> cache = new HashMap<Class<?>, Invoker>();
-
 	/**
 	 * get the invoker associated to a class.
 	 * 
@@ -49,10 +45,6 @@ public class InvokerRepository {
 	 */
 	public Invoker getInvoker(final Class<?> c) {
 		synchronized (c) {
-			Invoker invoker = this.cache.get(c);
-			if (invoker != null) {
-				return invoker;
-			}
 			final List<MethodInvoker> methodInvokers = new ArrayList<MethodInvoker>();
 			final Method[] methods = c.getMethods();
 			for (final Method method : methods) {
@@ -79,11 +71,9 @@ public class InvokerRepository {
 					methodInvokers.add(methodInvoker);
 				}
 			}
-			invoker = new InvokerImpl(
+			return new InvokerImpl(
 					methodInvokers.toArray(new MethodInvoker[methodInvokers
 							.size()]));
-			this.cache.put(c, invoker);
-			return invoker;
 		}
 	}
 
