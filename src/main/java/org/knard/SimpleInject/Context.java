@@ -19,14 +19,16 @@
 
 package org.knard.SimpleInject;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Set;
 
 public class Context {
 
-	private final Map<Class<?>, List<Object>> ctxByType = new HashMap<Class<?>, List<Object>>();
+	private final Map<Class<?>, Set<Object>> ctxByType = new HashMap<Class<?>, Set<Object>>();
 	private final Map<String, Object> ctxByName = new HashMap<String, Object>();
 
 	public void add(final Object o) {
@@ -34,10 +36,6 @@ public class Context {
 			return;
 		}
 		map(o.getClass(), o);
-		final Class<?>[] interfaces = o.getClass().getInterfaces();
-		for (final Class<?> c : interfaces) {
-			add(c, o);
-		}
 	}
 
 	private void map(final Class<? extends Object> c, final Object o) {
@@ -46,21 +44,30 @@ public class Context {
 		if (superClass != null) {
 			map(superClass, o);
 		}
+		final Class<?>[] interfaces = c.getInterfaces();
+		for (final Class<?> i : interfaces) {
+			add(i, o);
+		}
 	}
 
 	private void add(final Class<? extends Object> c, final Object o) {
-		List<Object> instances = this.ctxByType.get(c);
+		Set<Object> instances = this.ctxByType.get(c);
 		if (instances == null) {
-			instances = new ArrayList<Object>();
+			instances = new HashSet<Object>();
 			this.ctxByType.put(c, instances);
 		}
 		instances.add(o);
 	}
 
 	public Object getInstance(final Class<?> c) {
-		final List<Object> instances = this.ctxByType.get(c);
+		final Set<Object> instances = this.ctxByType.get(c);
 		if (instances != null) {
-			return instances.get(0);
+			try {
+				return instances.iterator().next();
+			} catch (NoSuchElementException e) {
+				// should never happen because the set is created only when the
+				// first element will be added.
+			}
 		}
 		return null;
 	}
