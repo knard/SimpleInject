@@ -32,18 +32,18 @@ import java.lang.reflect.Method;
 public class MethodInvoker {
 
 	/**
-	 * array of <code>Injector</code> in the order of the parameter of the
+	 * array of <code>ObjectRetriever</code> in the order of the parameter of the
 	 * method that will be invoked.
 	 */
-	private final Injector[] injectors;
+	private final ObjectRetriever[] objectRetrievers;
 
 	/**
 	 * the method that should be invoked.
 	 */
 	private final Method method;
 
-	public MethodInvoker(final Method method, final Injector[] injectors) {
-		this.injectors = injectors;
+	public MethodInvoker(final Method method, final ObjectRetriever[] retrievers) {
+		this.objectRetrievers = retrievers;
 		this.method = method;
 	}
 
@@ -56,9 +56,9 @@ public class MethodInvoker {
 	 *            the object on whihc the method invocation shoudl occure.
 	 */
 	public void invoke(final Context ctx, final Object instance) {
-		final Object[] params = new Object[this.injectors.length];
-		for (int i = 0; i < this.injectors.length; i++) {
-			params[i] = this.injectors[i].inject(ctx);
+		final Object[] params = new Object[this.objectRetrievers.length];
+		for (int i = 0; i < this.objectRetrievers.length; i++) {
+			params[i] = this.objectRetrievers[i].retrieve(ctx);
 		}
 		try {
 			this.method.invoke(instance, params);

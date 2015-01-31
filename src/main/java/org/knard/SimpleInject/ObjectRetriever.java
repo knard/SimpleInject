@@ -27,7 +27,7 @@ package org.knard.SimpleInject;
  * @author Pascal Migazzi
  *
  */
-public interface Injector {
+public interface ObjectRetriever {
 
 	/**
 	 * Retrieve the object from the context that should be injected.
@@ -35,8 +35,8 @@ public interface Injector {
 	 * @param ctx
 	 *            the context used during the injection.
 	 * @return object that should be injected or <code>null</code> if the
-	 *         context doesn't contain any object that fit this injector.
+	 *         context doesn't contain any object that fit this retriever.
 	 */
-	Object inject(Context ctx);
+	Object retrieve(Context ctx);
 
 }

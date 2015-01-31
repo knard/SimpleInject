@@ -49,7 +49,7 @@ public class InvokerRepository {
 			final Method[] methods = c.getMethods();
 			for (final Method method : methods) {
 				if (method.getAnnotation(Inject.class) != null) {
-					final List<Injector> injectors = new ArrayList<Injector>();
+					final List<ObjectRetriever> objectRetrievers = new ArrayList<ObjectRetriever>();
 					final Class<?>[] paramTypes = method.getParameterTypes();
 					final Annotation[][] annotations = method
 							.getParameterAnnotations();
@@ -58,15 +58,15 @@ public class InvokerRepository {
 						final Named namedAnnotation = getAnnotation(
 								paramAnnotations, Named.class);
 						if (namedAnnotation != null) {
-							injectors.add(new NamedInjector(namedAnnotation
+							objectRetrievers.add(new ByNameRetriever(namedAnnotation
 									.value()));
 						} else {
-							injectors.add(new TypeInjector(paramTypes[i]));
+							objectRetrievers.add(new ByTypeRetriever(paramTypes[i]));
 						}
 					}
 					method.setAccessible(true);
 					final MethodInvoker methodInvoker = new MethodInvoker(
-							method, injectors.toArray(new Injector[injectors
+							method, objectRetrievers.toArray(new ObjectRetriever[objectRetrievers
 									.size()]));
 					methodInvokers.add(methodInvoker);
 				}

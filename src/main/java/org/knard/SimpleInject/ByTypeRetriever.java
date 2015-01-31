@@ -20,29 +20,29 @@
 package org.knard.SimpleInject;
 
 /**
- * retrieve a value by name from the context.
+ * retrieve a value by type from the context.
  * 
  * @author Pascal Migazzi
  *
  */
-public class NamedInjector implements Injector {
+public class ByTypeRetriever implements ObjectRetriever {
 
 	/**
-	 * the name used to retrieve the value from the context.
+	 * type used to retrieve the data from the context.
 	 */
-	private final String name;
+	private final Class<?> c;
 
 	/**
 	 * 
-	 * @param name
-	 *            the name used to retrieve the value from the context.
+	 * @param c
+	 *            type used to retrieve the data from the context.
 	 */
-	public NamedInjector(final String name) {
-		this.name = name;
+	public ByTypeRetriever(final Class<?> c) {
+		this.c = c;
 	}
 
-	public Object inject(final Context ctx) {
-		return ctx.getInstance(this.name);
+	public Object retrieve(final Context ctx) {
+		return ctx.getInstance(this.c);
 	}
 
 }
