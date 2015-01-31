@@ -72,6 +72,14 @@ public class Context {
 		return null;
 	}
 
+	public Set<Object> getInstances(final Class<?> c) {
+		final Set<Object> instances = this.ctxByType.get(c);
+		if (instances != null) {
+			return Collections.unmodifiableSet(instances);
+		}
+		return null;
+	}
+
 	public void add(final String name, final Object o) {
 		this.ctxByName.put(name, o);
 		if (o != null) {
