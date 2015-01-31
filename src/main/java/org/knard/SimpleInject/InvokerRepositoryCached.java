@@ -23,13 +23,13 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class DICached extends DI {
+public class InvokerRepositoryCached extends InvokerRepository {
 
 	private final LinkedList<Class<?>> cacheBasket;
 	private final Map<Class<?>, Invoker> invokerMap;
 	private final int cacheSize;
 
-	public DICached(final int cacheSize) {
+	public InvokerRepositoryCached(final int cacheSize) {
 		this.cacheSize = cacheSize;
 		this.cacheBasket = new LinkedList<Class<?>>();
 		this.invokerMap = new HashMap<Class<?>, Invoker>(cacheSize + 1);

@@ -29,7 +29,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-public class DI {
+public class InvokerRepository {
 
 	private final Map<Class<?>, Invoker> cache = new HashMap<Class<?>, Invoker>();
 
