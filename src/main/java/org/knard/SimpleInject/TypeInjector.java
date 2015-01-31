@@ -19,10 +19,24 @@
 
 package org.knard.SimpleInject;
 
+/**
+ * retrieve a value by type from the context.
+ * 
+ * @author Pascal Migazzi
+ *
+ */
 public class TypeInjector implements Injector {
 
+	/**
+	 * type used to retrieve the data from the context.
+	 */
 	private final Class<?> c;
 
+	/**
+	 * 
+	 * @param c
+	 *            type used to retrieve the data from the context.
+	 */
 	public TypeInjector(final Class<?> c) {
 		this.c = c;
 	}

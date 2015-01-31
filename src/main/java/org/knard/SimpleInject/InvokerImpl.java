@@ -19,10 +19,26 @@
 
 package org.knard.SimpleInject;
 
+/**
+ * default implementation of the Invoker. This implementation is using
+ * reflection.
+ * 
+ * @author Pascal Migazzi
+ *
+ */
 public class InvokerImpl implements Invoker {
 
+	/**
+	 * All method invoker that should be executed on the target object.
+	 */
 	private final MethodInvoker[] invokers;
 
+	/**
+	 * 
+	 * @param invokers
+	 *            list of <code>MethodInvoker</code> that will be used during
+	 *            invocation.
+	 */
 	public InvokerImpl(final MethodInvoker[] invokers) {
 		this.invokers = invokers;
 	}

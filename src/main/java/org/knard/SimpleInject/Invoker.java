@@ -19,7 +19,24 @@
 
 package org.knard.SimpleInject;
 
+/**
+ * 
+ * This represent object used to invoke the object and inject correct object
+ * from the context.
+ * 
+ * @author Pascal Migazzi
+ *
+ */
 public interface Invoker {
 
+	/**
+	 * Invoke all methods annotated with <code>javax.inject.Inject</code> and
+	 * inject parameter with object found in the context.
+	 * 
+	 * @param ctx
+	 *            context used during the injection.
+	 * @param instance
+	 *            the object from which method should be invoked.
+	 */
 	public void invokeInContext(final Context ctx, final Object instance);
 }

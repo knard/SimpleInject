@@ -22,8 +22,20 @@ package org.knard.SimpleInject;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class is an implementation of <code>InvokerRepository</code> where the
+ * result is cached to improve performance.
+ * 
+ * @author Pascal Migazzi
+ *
+ */
 public class InvokerRepositoryCached extends InvokerRepository {
 
+	/**
+	 * map used to store the result of
+	 * <code>org.knard.SimpleInject.InvokerRepository.getInvoker(Class<?>)</code>
+	 * call.
+	 */
 	private final Map<Class<?>, Invoker> invokerMap;
 
 	public InvokerRepositoryCached() {

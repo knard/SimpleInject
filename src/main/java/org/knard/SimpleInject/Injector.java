@@ -19,8 +19,24 @@
 
 package org.knard.SimpleInject;
 
+/**
+ * 
+ * This class represent object used during the invocation to retrieve object
+ * that should be injected.
+ * 
+ * @author Pascal Migazzi
+ *
+ */
 public interface Injector {
 
+	/**
+	 * Retrieve the object from the context that should be injected.
+	 * 
+	 * @param ctx
+	 *            the context used during the injection.
+	 * @return object that should be injected or <code>null</code> if the
+	 *         context doesn't contain any object that fit this injector.
+	 */
 	Object inject(Context ctx);
 
 }

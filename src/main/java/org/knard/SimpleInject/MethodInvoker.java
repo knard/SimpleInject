@@ -22,9 +22,24 @@ package org.knard.SimpleInject;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+/**
+ * Object responsible to invoke a specific method on the target object and to
+ * inject value from the context as parameter.
+ * 
+ * @author Pascal Migazzi
+ *
+ */
 public class MethodInvoker {
 
+	/**
+	 * array of <code>Injector</code> in the order of the parameter of the
+	 * method that will be invoked.
+	 */
 	private final Injector[] injectors;
+
+	/**
+	 * the method that should be invoked.
+	 */
 	private final Method method;
 
 	public MethodInvoker(final Method method, final Injector[] injectors) {
@@ -32,6 +47,14 @@ public class MethodInvoker {
 		this.method = method;
 	}
 
+	/**
+	 * invoke the method and inject data from the context as parameter.
+	 * 
+	 * @param ctx
+	 *            the context used for the injection
+	 * @param instance
+	 *            the object on whihc the method invocation shoudl occure.
+	 */
 	public void invoke(final Context ctx, final Object instance) {
 		final Object[] params = new Object[this.injectors.length];
 		for (int i = 0; i < this.injectors.length; i++) {
