@@ -37,6 +37,7 @@ public interface Invoker {
 	 *            context used during the injection.
 	 * @param instance
 	 *            the object from which method should be invoked.
+	 * @throws InvocationException 
 	 */
-	public void invokeInContext(final Context ctx, final Object instance);
+	public void invokeInContext(final Context ctx, final Object instance) throws InvocationException;
 }

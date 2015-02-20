@@ -43,7 +43,7 @@ public class InvokerImpl implements Invoker {
 		this.invokers = invokers;
 	}
 
-	public void invokeInContext(final Context ctx, final Object instance) {
+	public void invokeInContext(final Context ctx, final Object instance) throws InvocationException {
 		for (final MethodInvoker invoker : this.invokers) {
 			invoker.invoke(ctx, instance);
 		}

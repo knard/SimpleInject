@@ -54,8 +54,9 @@ public class MethodInvoker {
 	 *            the context used for the injection
 	 * @param instance
 	 *            the object on whihc the method invocation shoudl occure.
+	 * @throws InvocationException 
 	 */
-	public void invoke(final Context ctx, final Object instance) {
+	public void invoke(final Context ctx, final Object instance) throws InvocationException {
 		final Object[] params = new Object[this.objectRetrievers.length];
 		for (int i = 0; i < this.objectRetrievers.length; i++) {
 			params[i] = this.objectRetrievers[i].retrieve(ctx);
@@ -63,14 +64,11 @@ public class MethodInvoker {
 		try {
 			this.method.invoke(instance, params);
 		} catch (final IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new InvocationException(e);
 		} catch (final IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new InvocationException(e);
 		} catch (final InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new InvocationException(e);
 		}
 	}
 
